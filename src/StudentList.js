@@ -55,21 +55,9 @@ function StudentEdit({ inputs, setInputs }) {
 
   return (
     <>
-      <input
-        name="name"
-        //value={selectedStudent.name}
-        onChange={onChange}
-      ></input>
-      <input
-        name="grade"
-        //value={selectedStudent.grade}
-        onChange={onChange}
-      ></input>
-      <input
-        name="profile"
-        //value={selectedStudent.profile}
-        onChange={onChange}
-      ></input>
+      <input name="name" defaultValue={name} onChange={onChange}></input>
+      <input name="grade" defaultValue={grade} onChange={onChange}></input>
+      <input name="profile" defaultValue={profile} onChange={onChange}></input>
       <button onClick={editStudent}>수정</button>
     </>
   );
@@ -87,6 +75,7 @@ function StudentList() {
   const { students, setStudents } = useContext(StudentsDispatch);
 
   const onToggle = id => {
+    const selectedStudent = students.find(student => student.id === id);
     setStudents(students =>
       students.map(student =>
         student.id === id
@@ -94,6 +83,13 @@ function StudentList() {
           : { ...student, selected: false }
       )
     );
+
+    console.log(selectedStudent);
+    setInputs({
+      name: selectedStudent.name,
+      grade: selectedStudent.grade,
+      profile: selectedStudent.profile
+    });
   };
 
   return (
