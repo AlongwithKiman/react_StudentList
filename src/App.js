@@ -1,7 +1,9 @@
 import React, { useState, useRef } from "react";
 import StudentList from "./StudentList";
 import AddStudent from "./AddStudent";
-
+import "./App.css";
+import "./ModalContainer";
+import ModalContainer from "./ModalContainer";
 export const StudentsDispatch = React.createContext(null);
 
 function App() {
@@ -27,11 +29,18 @@ function App() {
   ]);
   const manageStudent = { students, setStudents };
   return (
-    <StudentsDispatch.Provider value={manageStudent}>
-      <div>와플고등학교 명단 관리 프로그램</div>
-
-      <StudentList></StudentList>
-      <AddStudent nextId={nextId}></AddStudent>
+    <StudentsDispatch.Provider
+      value={manageStudent}
+      style={{ display: "flex" }}
+    >
+      <header>
+        <h1>와플고등학교 명단 관리 프로그램</h1>
+        <div>대시보드</div>
+      </header>
+      <main>
+        <StudentList nextId={nextId}></StudentList>
+      </main>
+      <ModalContainer></ModalContainer>
     </StudentsDispatch.Provider>
   );
 }

@@ -1,7 +1,23 @@
 import React, { useContext, useState, useEffect } from "react";
 import { StudentsDispatch } from "./App";
-import produce from "immer";
+import AddStudent from "./AddStudent";
+import "./App.css";
+
 export const editInput = React.createContext(null);
+
+function InputForm({ text, name, defaultValue, onChange }) {
+  return (
+    <div>
+      <span style={{ margin: "5px" }}>{text}</span>
+      <input
+        style={{ margin: "5px" }}
+        name={name}
+        defaultValue={defaultValue}
+        onChange={onChange}
+      ></input>
+    </div>
+  );
+}
 
 function StudentInfo({ student, onToggle, inputs, setInputs }) {
   const { name, grade, selected, id } = student;
@@ -11,11 +27,10 @@ function StudentInfo({ student, onToggle, inputs, setInputs }) {
       onMouseOver={() => setListHover(true)}
       onMouseOut={() => setListHover(false)}
       onClick={() => onToggle(student.id)}
-      style={{ border: "1px solid black" }}
     >
       <b style={{ color: selected ? "black" : "green" }}>{name} </b>
       <span>{grade} </span>
-      <span>{selected ? "선택됨" : isListHover ? "마우스올라옴" : ""}</span>
+      {/* <span>{selected ? "선택됨" : isListHover ? "마우스올라옴" : ""}</span> */}
     </li>
   );
 }
@@ -43,6 +58,9 @@ function StudentEdit({ inputs, setInputs }) {
     );
   };
 
+  const deleteStudent = id => {
+    setStudents(students.filter(student => student.id !== id));
+  };
   const onChange = e => {
     const { value, name } = e.target; // 여기서 name은 위의 name 이 아니다.
     setInputs({
@@ -51,19 +69,49 @@ function StudentEdit({ inputs, setInputs }) {
     });
   };
 
-  if (!selectedStudent) return <div>학생 선택해라</div>;
+  if (!selectedStudent)
+    return (
+      <div
+        style={{
+          textAlign: "center",
+          height: "100px",
+          lineHeight: "100px"
+        }}
+      >
+        왼쪽 표에서 학생을 선택해 주세요
+      </div>
+    );
 
   return (
     <>
-      <input name="name" defaultValue={name} onChange={onChange}></input>
-      <input name="grade" defaultValue={grade} onChange={onChange}></input>
-      <input name="profile" defaultValue={profile} onChange={onChange}></input>
-      <button onClick={editStudent}>수정</button>
+      <div className="buttons">
+        <button onClick={editStudent}>저장</button>
+        <button onClick={() => deleteStudent(selectedStudent.id)}>삭제</button>
+      </div>
+      <div style={{ border: "1px solid black" }}>여기 사진</div>
+      <InputForm
+        text="이름"
+        name="name"
+        defaultValue={name}
+        onChange={onChange}
+      ></InputForm>
+      <InputForm
+        text="학년"
+        name="grade"
+        defaultValue={grade}
+        onChange={onChange}
+      ></InputForm>
+      <InputForm
+        text="프로필"
+        name="profile"
+        defaultValue={profile}
+        onChange={onChange}
+      ></InputForm>
     </>
   );
 }
 
-function StudentList() {
+function StudentList({ nextId }) {
   const [inputs, setInputs] = useState({
     name: "",
     grade: "",
@@ -94,41 +142,43 @@ function StudentList() {
 
   return (
     <>
-      <span>검색</span>
-      <input
-        onChange={e => {
-          setSearcher(e.target.value);
-        }}
-      ></input>
-      <div>
-        <b>이름</b>
-        <span>학년</span>
+      <div className="searcher">
+        <span>검색</span>
+        <input
+          onChange={e => {
+            setSearcher(e.target.value);
+          }}
+        ></input>
+        <AddStudent nextId={nextId}></AddStudent>
       </div>
 
-      <ul>
-        {students
-          .filter(student => {
-            if (searcher === "") {
-              return student;
-            } else if (
-              student.name.toLowerCase().includes(searcher.toLowerCase())
-            ) {
-              return student;
-            }
-          })
-          .map(student => (
-            <StudentInfo student={student} onToggle={onToggle} />
-          ))}
-      </ul>
+      <div className="manage">
+        <div className="list">
+          <ul>
+            <li className="listTitle">
+              <b>이름</b>
+              <span>학년</span>
+            </li>
+            {students
+              .filter(student => {
+                if (searcher === "") {
+                  return student;
+                } else if (
+                  student.name.toLowerCase().includes(searcher.toLowerCase())
+                ) {
+                  return student;
+                }
+              })
+              .map(student => (
+                <StudentInfo student={student} onToggle={onToggle} />
+              ))}
+          </ul>
+        </div>
 
-      <StudentEdit
-        style={{ border: "1px solid black" }}
-        inputs={inputs}
-        setInputs={setInputs}
-      ></StudentEdit>
-      {/* <div style={{ border: "1px solid black" }}>
-        학생 명단 hover 시 여기에 오른쪽 학생 정보 창
-      </div> */}
+        <div className="edit">
+          <StudentEdit inputs={inputs} setInputs={setInputs}></StudentEdit>
+        </div>
+      </div>
     </>
   );
 }
