@@ -45,13 +45,20 @@ function AddStudent({ nextId }) {
       profile: ""
     });
     nextId.current += 1;
+
+    setModalOpen(false);
     console.log(nextId.current);
   };
 
   return (
     <>
       <button onClick={openModal}>추가</button>
-      <Modal open={modalOpen} close={closeModal} header="추가">
+      <Modal
+        open={modalOpen}
+        close={closeModal}
+        onCreate={onCreate}
+        header="추가"
+      >
         <div>
           <b>이름 </b>
           <input
@@ -81,8 +88,6 @@ function AddStudent({ nextId }) {
             value={profile}
           ></input>
         </div>
-
-        <button onClick={onCreate}>추가</button>
       </Modal>
     </>
   );

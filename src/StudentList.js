@@ -143,7 +143,6 @@ function StudentList({ nextId }) {
   return (
     <>
       <div className="searcher">
-        <span>검색</span>
         <input
           onChange={e => {
             setSearcher(e.target.value);

@@ -12,7 +12,7 @@ function App() {
   const [students, setStudents] = useState([
     {
       id: 1,
-      name: "abc",
+      name: "정광진",
       grade: "1",
       profile: "temp",
       selected: false,
@@ -20,7 +20,7 @@ function App() {
     },
     {
       id: 2,
-      name: "def",
+      name: "이기만",
       grade: "2",
       profile: "temp",
       selected: false,
@@ -40,7 +40,6 @@ function App() {
       <main>
         <StudentList nextId={nextId}></StudentList>
       </main>
-      <ModalContainer></ModalContainer>
     </StudentsDispatch.Provider>
   );
 }

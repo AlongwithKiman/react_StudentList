@@ -2,23 +2,28 @@ import React from "react";
 import "./Modal.css";
 
 const Modal = props => {
-  const { open, close, header } = props;
+  const { open, close, header, onCreate } = props;
   return (
     <div className={open ? "openModal modal" : "modal"}>
       {open ? (
         <section>
-          <header>
-            {header}
-            <button className="close" onClick={close}>
-              {" "}
-              &times;{" "}
-            </button>
-          </header>
           <main>{props.children}</main>
           <footer>
-            <button className="close" onClick={close}>
+            <button
+              className="add"
+              onClick={onCreate}
+              style={{ backgroundColor: "green" }}
+            >
               {" "}
-              close{" "}
+              추가{" "}
+            </button>
+            <button
+              className="close"
+              onClick={close}
+              style={{ backgroundColor: "pink" }}
+            >
+              {" "}
+              닫기{" "}
             </button>
           </footer>
         </section>
