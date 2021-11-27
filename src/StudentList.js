@@ -2,17 +2,27 @@ import React, { useContext, useState, useEffect } from "react";
 import { StudentsDispatch } from "./App";
 import AddStudent from "./AddStudent";
 import "./App.css";
+import { placeholder } from "@babel/types";
 
 export const editInput = React.createContext(null);
 
 function InputForm({ text, name, defaultValue, onChange }) {
   return (
     <div>
-      <span style={{ margin: "5px" }}>{text}</span>
+      <div
+        style={{
+          margin: "5px",
+          width: "10%",
+          display: "inline-block",
+          fontWeight: "bold"
+        }}
+      >
+        {text}
+      </div>
       <input
-        style={{ margin: "5px" }}
+        style={{ margin: "5px", width: "80%", backgroundColor: "#ebf9fa" }}
         name={name}
-        defaultValue={defaultValue}
+        // defaultValue={defaultValue}
         onChange={onChange}
       ></input>
     </div>
@@ -28,8 +38,30 @@ function StudentInfo({ student, onToggle, inputs, setInputs }) {
       onMouseOut={() => setListHover(false)}
       onClick={() => onToggle(student.id)}
     >
-      <b style={{ color: selected ? "black" : "green" }}>{name} </b>
-      <span>{grade} </span>
+      <b>{name} </b>
+      <span>
+        {grade}
+        {selected ? (
+          <img
+            src="https://cdn.icon-icons.com/icons2/2248/PNG/512/arrow_left_box_icon_137939.png"
+            style={{
+              width: "30px",
+              height: "30px",
+              marginRight: "5%"
+            }}
+          ></img>
+        ) : isListHover ? (
+          <img
+            src="https://cdn.icon-icons.com/icons2/2248/PNG/512/arrow_right_bold_box_icon_135930.png"
+            style={{
+              width: "30px",
+              height: "30px",
+              marginRight: "5%"
+            }}
+          ></img>
+        ) : null}{" "}
+      </span>
+
       {/* <span>{selected ? "선택됨" : isListHover ? "마우스올라옴" : ""}</span> */}
     </li>
   );
@@ -88,30 +120,42 @@ function StudentEdit({ inputs, setInputs }) {
         <button onClick={editStudent}>저장</button>
         <button onClick={() => deleteStudent(selectedStudent.id)}>삭제</button>
       </div>
-      <div style={{ border: "1px solid black" }}>여기 사진</div>
-      <InputForm
-        text="이름"
-        name="name"
-        defaultValue={name}
-        onChange={onChange}
-      ></InputForm>
-      <InputForm
-        text="학년"
-        name="grade"
-        defaultValue={grade}
-        onChange={onChange}
-      ></InputForm>
-      <InputForm
-        text="프로필"
-        name="profile"
-        defaultValue={profile}
-        onChange={onChange}
-      ></InputForm>
+      <img
+        src={selectedStudent.profile}
+        style={{
+          height: "50%",
+          width: "40%",
+          marginLeft: "30%",
+          marginRight: "30%",
+          marginTop: "3%",
+          marginBottom: "3%"
+        }}
+      ></img>
+      <div style={{ marginLeft: "10%", height: "30%" }}>
+        <InputForm
+          text="이름"
+          name="name"
+          // defaultValue={name}
+          onChange={onChange}
+        ></InputForm>
+        <InputForm
+          text="학년"
+          name="grade"
+          // defaultValue={grade}
+          onChange={onChange}
+        ></InputForm>
+        <InputForm
+          text="프로필"
+          name="profile"
+          // defaultValue={profile}
+          onChange={onChange}
+        ></InputForm>
+      </div>
     </>
   );
 }
 
-function StudentList({ nextId }) {
+function StudentList({ nextId, onChange }) {
   const [inputs, setInputs] = useState({
     name: "",
     grade: "",
@@ -132,11 +176,16 @@ function StudentList({ nextId }) {
       )
     );
 
-    console.log(selectedStudent);
+    // setInputs({
+    //   name: selectedStudent.name,
+    //   grade: selectedStudent.grade,
+    //   profile: selectedStudent.profile
+    // });
+
     setInputs({
-      name: selectedStudent.name,
-      grade: selectedStudent.grade,
-      profile: selectedStudent.profile
+      name: "",
+      grade: "",
+      profile: ""
     });
   };
 
@@ -146,13 +195,14 @@ function StudentList({ nextId }) {
         <div className="list">
           <div className="searcher">
             <input
+              placeholder="검색"
               onChange={e => {
                 setSearcher(e.target.value);
               }}
             ></input>
             <AddStudent nextId={nextId}></AddStudent>
           </div>
-          <ul>
+          <ul style={{ overflow: "au" }}>
             <li className="listTitle">
               <b>이름</b>
               <span>학년</span>

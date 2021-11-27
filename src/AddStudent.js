@@ -32,6 +32,13 @@ function AddStudent({ nextId }) {
   };
 
   const onCreate = () => {
+    if (name.length !== 2 && name.length !== 3) {
+      window.alert("이름을 올바르게 입력해 주세요");
+      return;
+    } else if (grade !== "1" && grade !== "2" && grade !== "3") {
+      window.alert("학년을 올바르게 입력해 주세요");
+      return;
+    }
     const newStudent = {
       id: nextId.current,
       name,
