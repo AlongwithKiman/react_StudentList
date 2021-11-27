@@ -142,17 +142,16 @@ function StudentList({ nextId }) {
 
   return (
     <>
-      <div className="searcher">
-        <input
-          onChange={e => {
-            setSearcher(e.target.value);
-          }}
-        ></input>
-        <AddStudent nextId={nextId}></AddStudent>
-      </div>
-
       <div className="manage">
         <div className="list">
+          <div className="searcher">
+            <input
+              onChange={e => {
+                setSearcher(e.target.value);
+              }}
+            ></input>
+            <AddStudent nextId={nextId}></AddStudent>
+          </div>
           <ul>
             <li className="listTitle">
               <b>이름</b>
@@ -174,6 +173,7 @@ function StudentList({ nextId }) {
           </ul>
         </div>
 
+        <div className="verticalLine"></div>
         <div className="edit">
           <StudentEdit inputs={inputs} setInputs={setInputs}></StudentEdit>
         </div>

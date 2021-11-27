@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { StudentsDispatch } from "./App";
 import Modal from "./Modal";
+import "./App.css";
 function AddStudent({ nextId }) {
   //for modal
 
@@ -52,7 +53,9 @@ function AddStudent({ nextId }) {
 
   return (
     <>
-      <button onClick={openModal}>추가</button>
+      <button onClick={openModal} style={{ fontSize: "10px" }}>
+        추가
+      </button>
       <Modal
         open={modalOpen}
         close={closeModal}

@@ -35,7 +35,9 @@ function App() {
     >
       <header>
         <h1>와플고등학교 명단 관리 프로그램</h1>
-        <div>대시보드</div>
+        <div className="container">
+          <div>TODO: Chart</div>
+        </div>
       </header>
       <main>
         <StudentList nextId={nextId}></StudentList>

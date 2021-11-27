@@ -7,19 +7,29 @@ h1 {
   font-size: 20px;
 }
 
-header div {
-  background-color: gray;
+.container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.container div {
+  background-color: lightgray;
   text-align: center;
+  width: 90%;
+  height: 100px;
 }
 
 .searcher {
   display: flex;
-  width: 50%;
   justify-content: space-between;
+  margin-bottom: 10px;
+  height: 20px;
 }
 
 .manage {
   display: flex;
+  justify-content: space-around;
 }
 
 .listTitle {
@@ -28,17 +38,28 @@ header div {
 
 .listTitle span {
   padding-left: 5px;
+  font-weight: bold;
 }
 .list {
-  /* border: solid 1px gray; */
-  flex-grow: 1;
+  /* flex-basis: 0; */
+  height: 300px;
+  width: 45%;
+}
+
+.verticalLine {
+  border-right: 1px solid lightgray;
+  height: 300px;
+  width: 0.1px;
+  /* flex-basis: 0; */
 }
 
 .edit {
-  border: solid 1px gray;
-  flex-grow: 1;
+  border: solid 1px lightgray;
   display: flex;
   flex-direction: column;
+  /* flex-basis: 0; */
+  height: 300px;
+  width: 45%;
 }
 
 .buttons {
@@ -51,10 +72,11 @@ header div {
 }
 
 ul {
-  border: 1px solid black;
   list-style: none;
   padding-left: 0;
-  width: 50%;
+  margin: 0;
+  height: 270px;
+  border: 1px solid lightgray;
 }
 li {
   background-color: lightgray;
