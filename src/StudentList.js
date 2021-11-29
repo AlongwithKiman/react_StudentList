@@ -6,7 +6,7 @@ import { placeholder } from "@babel/types";
 
 export const editInput = React.createContext(null);
 
-function InputForm({ text, name, defaultValue, onChange }) {
+function InputForm({ text, name, value, onChange }) {
   return (
     <div>
       <div
@@ -22,7 +22,7 @@ function InputForm({ text, name, defaultValue, onChange }) {
       <input
         style={{ margin: "5px", width: "80%", backgroundColor: "#ebf9fa" }}
         name={name}
-        // defaultValue={defaultValue}
+        value={value}
         onChange={onChange}
       ></input>
     </div>
@@ -135,19 +135,19 @@ function StudentEdit({ inputs, setInputs }) {
         <InputForm
           text="이름"
           name="name"
-          // defaultValue={name}
+          value={inputs.name}
           onChange={onChange}
         ></InputForm>
         <InputForm
           text="학년"
           name="grade"
-          // defaultValue={grade}
+          value={inputs.grade}
           onChange={onChange}
         ></InputForm>
         <InputForm
           text="프로필"
           name="profile"
-          // defaultValue={profile}
+          value={inputs.profile}
           onChange={onChange}
         ></InputForm>
       </div>
@@ -176,17 +176,17 @@ function StudentList({ nextId, onChange }) {
       )
     );
 
-    // setInputs({
-    //   name: selectedStudent.name,
-    //   grade: selectedStudent.grade,
-    //   profile: selectedStudent.profile
-    // });
-
     setInputs({
-      name: "",
-      grade: "",
-      profile: ""
+      name: selectedStudent.name,
+      grade: selectedStudent.grade,
+      profile: selectedStudent.profile
     });
+
+    // setInputs({
+    //   name: "",
+    //   grade: "",
+    //   profile: ""
+    // });
   };
 
   return (
