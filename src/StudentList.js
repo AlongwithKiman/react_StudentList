@@ -6,6 +6,9 @@ import { placeholder } from "@babel/types";
 
 export const editInput = React.createContext(null);
 
+// INPUT FORM :
+// 학생 수정 input 스타일 설정
+
 function InputForm({ text, name, value, onChange }) {
   return (
     <div>
@@ -29,19 +32,38 @@ function InputForm({ text, name, value, onChange }) {
   );
 }
 
+// STUDENT INFO :
+// 학생 1명 정보 렌더링
+
 function StudentInfo({ student, onToggle, inputs, setInputs }) {
   const { name, grade, selected, id } = student;
   const [isListHover, setListHover] = useState(false);
+
+  const { students, setStudents } = useContext(StudentsDispatch);
+
+  const unselect = e => {
+    e.stopPropagation(); // 부모 눌리는 거 방지
+    setStudents(students =>
+      students.map(student =>
+        student.selected ? { ...student, selected: false } : student
+      )
+    );
+  };
+
   return (
     <li
       onMouseOver={() => setListHover(true)}
       onMouseOut={() => setListHover(false)}
-      onClick={() => onToggle(student.id)}
+      onClick={() => {
+        onToggle(student.id);
+        console.log("clicked");
+      }}
     >
       <b>{name} </b>
       <span>
         {grade}
-        {selected ? (
+
+        {selected ? ( // 왼쪽 아이콘
           <img
             src="https://cdn.icon-icons.com/icons2/2248/PNG/512/arrow_left_box_icon_137939.png"
             style={{
@@ -49,8 +71,9 @@ function StudentInfo({ student, onToggle, inputs, setInputs }) {
               height: "30px",
               marginRight: "5%"
             }}
+            onClick={unselect}
           ></img>
-        ) : isListHover ? (
+        ) : isListHover ? ( // 오른쪽 아이콘
           <img
             src="https://cdn.icon-icons.com/icons2/2248/PNG/512/arrow_right_bold_box_icon_135930.png"
             style={{
@@ -58,14 +81,21 @@ function StudentInfo({ student, onToggle, inputs, setInputs }) {
               height: "30px",
               marginRight: "5%"
             }}
+            onClick={() => {
+              onToggle(student.id);
+              console.log("clicked2");
+            }}
           ></img>
-        ) : null}{" "}
+        ) : null}
       </span>
 
       {/* <span>{selected ? "선택됨" : isListHover ? "마우스올라옴" : ""}</span> */}
     </li>
   );
 }
+
+// STUDENT EDIT :
+//오른쪽 학생 정보 수정창
 
 function StudentEdit({ inputs, setInputs }) {
   const { students, setStudents } = useContext(StudentsDispatch);
@@ -75,19 +105,24 @@ function StudentEdit({ inputs, setInputs }) {
   const { name, grade, profile } = inputs;
 
   const editStudent = () => {
-    setStudents(
-      students.map(student =>
-        student.id === selectedStudent.id
-          ? {
-              name: name,
-              grade: grade,
-              profile: profile,
-              selected: false,
-              id: selectedStudent.id
-            }
-          : { ...student, selected: false }
-      )
-    );
+    if (name.length !== 2 && name.length !== 3) {
+      window.alert("이름을 올바르게 입력해 주세요");
+    } else if (grade != "1" && grade != "2" && grade != "3") {
+      window.alert("학년을 올바르게 입력해 주세요");
+    } else
+      setStudents(
+        students.map(student =>
+          student.id === selectedStudent.id
+            ? {
+                name: name,
+                grade: grade,
+                profile: profile,
+                selected: false,
+                id: selectedStudent.id
+              }
+            : { ...student, selected: false }
+        )
+      );
   };
 
   const deleteStudent = id => {
@@ -121,7 +156,11 @@ function StudentEdit({ inputs, setInputs }) {
         <button onClick={() => deleteStudent(selectedStudent.id)}>삭제</button>
       </div>
       <img
-        src={selectedStudent.profile}
+        src={
+          selectedStudent.profile
+            ? selectedStudent.profile
+            : "https://i.stack.imgur.com/l60Hf.png" // 임시 이미지
+        }
         style={{
           height: "50%",
           width: "40%",
@@ -154,6 +193,9 @@ function StudentEdit({ inputs, setInputs }) {
     </>
   );
 }
+
+// STUDENT LIST :
+// 학생들 리스트로 렌더링
 
 function StudentList({ nextId, onChange }) {
   const [inputs, setInputs] = useState({
@@ -200,9 +242,13 @@ function StudentList({ nextId, onChange }) {
                 setSearcher(e.target.value);
               }}
             ></input>
-            <AddStudent nextId={nextId}></AddStudent>
+            <AddStudent
+              nextId={nextId}
+              editInputs={inputs}
+              seteditInputs={setInputs}
+            ></AddStudent>
           </div>
-          <ul style={{ overflow: "au" }}>
+          <ul style={{ overflow: "auto" }}>
             <li className="listTitle">
               <b>이름</b>
               <span>학년</span>

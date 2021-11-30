@@ -90,6 +90,12 @@ function App() {
     }
   ]);
 
+  // FOR DEBUG
+
+  const debug = () => {
+    console.log(students.map(student => [student.name, student.selected]));
+  };
+
   const nextId = useRef(students.length + 1); // 왜 useState 에서는 nan 이 뜨냐.
 
   const manageStudent = { students, setStudents };
@@ -116,6 +122,7 @@ function App() {
       <main>
         <StudentList nextId={nextId}></StudentList>
       </main>
+      <button onClick={debug}> debug</button>
     </StudentsDispatch.Provider>
   );
 }

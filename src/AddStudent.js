@@ -2,8 +2,15 @@ import React, { useState, useContext } from "react";
 import { StudentsDispatch } from "./App";
 import Modal from "./Modal";
 import "./App.css";
-function AddStudent({ nextId }) {
+function AddStudent({ nextId, editInputs, seteditInputs }) {
+  // editInputs : 오른쪽 에딧창 인풋 ( 생성했을 때 인풋값 변경 )
   //for modal
+
+  const [inputs, setInputs] = useState({
+    name: "",
+    grade: "",
+    profile: ""
+  });
 
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -11,16 +18,12 @@ function AddStudent({ nextId }) {
     setModalOpen(true);
   };
   const closeModal = () => {
+    setInputs({ name: "", grade: "", profile: "" });
     setModalOpen(false);
   };
 
   const { students, setStudents } = useContext(StudentsDispatch);
 
-  const [inputs, setInputs] = useState({
-    name: "",
-    grade: "",
-    profile: ""
-  });
   const { name, grade, profile } = inputs;
 
   const onChange = e => {
@@ -35,7 +38,7 @@ function AddStudent({ nextId }) {
     if (name.length !== 2 && name.length !== 3) {
       window.alert("이름을 올바르게 입력해 주세요");
       return;
-    } else if (grade !== "1" && grade !== "2" && grade !== "3") {
+    } else if (grade != "1" && grade != "2" && grade != "3") {
       window.alert("학년을 올바르게 입력해 주세요");
       return;
     }
@@ -43,8 +46,11 @@ function AddStudent({ nextId }) {
       id: nextId.current,
       name,
       grade,
-      profile
+      profile,
+      selected: true
     };
+
+    setStudents(students.map(student => (student.selected = false)));
 
     setStudents([...students, newStudent]);
     setInputs({
@@ -52,8 +58,12 @@ function AddStudent({ nextId }) {
       grade: "",
       profile: ""
     });
+    seteditInputs({
+      name: newStudent.name,
+      grade: newStudent.grade,
+      profile: newStudent.profile
+    });
     nextId.current += 1;
-
     setModalOpen(false);
     console.log(nextId.current);
   };

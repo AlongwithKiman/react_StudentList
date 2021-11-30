@@ -84,7 +84,13 @@ ul {
   margin: 0;
   height: 470px;
   border: 1px solid lightgray;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
+ul::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera*/
+}
+
 li {
   background-color: lightgray;
   list-style: none;
