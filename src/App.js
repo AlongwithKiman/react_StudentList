@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import StudentList from "./StudentList";
 import AddStudent from "./AddStudent";
+import { PieChart, Pie, Cell } from "recharts";
 import "./App.css";
 import "./ModalContainer";
 import ModalContainer from "./ModalContainer";
@@ -90,10 +91,33 @@ function App() {
     }
   ]);
 
+  // DATA FOR PIECHART
+
+  const studentData = [
+    {
+      name: "1학년",
+      value: students.filter(student => student.grade == "1").length
+    },
+    {
+      name: "2학년",
+      value: students.filter(student => student.grade == "2").length
+    },
+    {
+      name: "3학년",
+      value: students.filter(student => student.grade == "3").length
+    }
+  ];
+
+  const COLORS = ["red", "blue", "yellow"];
+
+  const renderLabel = entry => {
+    return `${entry.name}(${entry.value})`;
+  };
   // FOR DEBUG
 
   const debug = () => {
-    console.log(students.map(student => [student.name, student.selected]));
+    //    console.log(students.map(student => [student.name, student.selected]));
+    console.log(studentData.map(data => data.value));
   };
 
   const nextId = useRef(students.length + 1); // 왜 useState 에서는 nan 이 뜨냐.
@@ -116,7 +140,28 @@ function App() {
           <h1>와플고등학교 명단 관리 프로그램</h1>
         </div>
         <div className="container">
-          <div>TODO: Chart</div>
+          <div>
+            <PieChart
+              width={150}
+              height={150}
+              style={{ position: "absolute", right: "5%" }}
+            >
+              <Pie
+                data={studentData}
+                dataKey="value"
+                nameKey="name"
+                cx="50%"
+                cy="50%"
+                outerRadius={30}
+                fill={["blue", "red", "yellow"]}
+                label={renderLabel}
+              >
+                {studentData.map((entry, index) => (
+                  <Cell fill={COLORS[index % COLORS.length]} />
+                ))}
+              </Pie>
+            </PieChart>
+          </div>
         </div>
       </header>
       <main>

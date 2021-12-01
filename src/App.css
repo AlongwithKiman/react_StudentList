@@ -22,9 +22,8 @@ h1 {
 
 .container div {
   background-color: lightgray;
-  text-align: center;
   width: 97%;
-  height: 130px;
+  height: 150px;
 }
 
 .searcher {
