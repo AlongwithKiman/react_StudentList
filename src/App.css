@@ -4,6 +4,18 @@ header {
 main {
 }
 
+a:link {
+  text-decoration: none;
+}
+
+a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
 img {
   width: 40px;
   height: 40px;
@@ -104,6 +116,7 @@ li {
 li b {
   flex: 2 1 0;
   text-align: center;
+  color: black;
   /* border: 1px solid black; */
 }
 
@@ -113,4 +126,5 @@ li span {
   padding-left: 15px;
   display: flex;
   justify-content: space-between;
+  color: black;
 }

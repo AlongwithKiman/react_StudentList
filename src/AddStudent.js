@@ -46,7 +46,7 @@ function AddStudent({ nextId, editInputs, seteditInputs }) {
       id: nextId.current,
       name,
       grade,
-      profile,
+      profile: "",
       selected: true
     };
 
@@ -99,7 +99,7 @@ function AddStudent({ nextId, editInputs, seteditInputs }) {
           ></input>
         </div>
 
-        <div>
+        {/* <div>
           <b>프로필 </b>
           <input
             name="profile"
@@ -107,7 +107,7 @@ function AddStudent({ nextId, editInputs, seteditInputs }) {
             onChange={onChange}
             value={profile}
           ></input>
-        </div>
+        </div> */}
       </Modal>
     </>
   );

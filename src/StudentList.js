@@ -2,14 +2,15 @@ import React, { useContext, useState, useEffect } from "react";
 import { StudentsDispatch } from "./App";
 import AddStudent from "./AddStudent";
 import "./App.css";
+import { Route, Link } from "react-router-dom";
 import { placeholder } from "@babel/types";
-
+import Detail from "./Detail";
 export const editInput = React.createContext(null);
 
 // INPUT FORM :
 // 학생 수정 input 스타일 설정
 
-function InputForm({ text, name, value, onChange }) {
+function InputForm({ text, name, value, onChange, disabled }) {
   return (
     <div>
       <div
@@ -27,6 +28,7 @@ function InputForm({ text, name, value, onChange }) {
         name={name}
         value={value}
         onChange={onChange}
+        disabled={disabled}
       ></input>
     </div>
   );
@@ -51,46 +53,48 @@ function StudentInfo({ student, onToggle, inputs, setInputs }) {
   };
 
   return (
-    <li
-      onMouseOver={() => setListHover(true)}
-      onMouseOut={() => setListHover(false)}
-      onClick={() => {
-        onToggle(student.id);
-        console.log("clicked");
-      }}
-    >
-      <b>{name} </b>
-      <span>
-        {grade}
+    <Link to={`/detail/${student.name}`} className="Link">
+      <li
+        onMouseOver={() => setListHover(true)}
+        onMouseOut={() => setListHover(false)}
+        onClick={() => {
+          onToggle(student.id);
+          console.log("clicked");
+        }}
+      >
+        <b>{name} </b>
+        <span>
+          {grade}
 
-        {selected ? ( // 왼쪽 아이콘
-          <img
-            src="https://cdn.icon-icons.com/icons2/2248/PNG/512/arrow_left_box_icon_137939.png"
-            style={{
-              width: "30px",
-              height: "30px",
-              marginRight: "5%"
-            }}
-            onClick={unselect}
-          ></img>
-        ) : isListHover ? ( // 오른쪽 아이콘
-          <img
-            src="https://cdn.icon-icons.com/icons2/2248/PNG/512/arrow_right_bold_box_icon_135930.png"
-            style={{
-              width: "30px",
-              height: "30px",
-              marginRight: "5%"
-            }}
-            onClick={() => {
-              onToggle(student.id);
-              console.log("clicked2");
-            }}
-          ></img>
-        ) : null}
-      </span>
+          {selected ? ( // 왼쪽 아이콘
+            <img
+              src="https://cdn.icon-icons.com/icons2/2248/PNG/512/arrow_left_box_icon_137939.png"
+              style={{
+                width: "30px",
+                height: "30px",
+                marginRight: "5%"
+              }}
+              onClick={unselect}
+            ></img>
+          ) : isListHover ? ( // 오른쪽 아이콘
+            <img
+              src="https://cdn.icon-icons.com/icons2/2248/PNG/512/arrow_right_bold_box_icon_135930.png"
+              style={{
+                width: "30px",
+                height: "30px",
+                marginRight: "5%"
+              }}
+              onClick={() => {
+                onToggle(student.id);
+                console.log("clicked2");
+              }}
+            ></img>
+          ) : null}
+        </span>
 
-      {/* <span>{selected ? "선택됨" : isListHover ? "마우스올라옴" : ""}</span> */}
-    </li>
+        {/* <span>{selected ? "선택됨" : isListHover ? "마우스올라옴" : ""}</span> */}
+      </li>
+    </Link>
   );
 }
 
@@ -176,18 +180,21 @@ function StudentEdit({ inputs, setInputs }) {
           name="name"
           value={inputs.name}
           onChange={onChange}
+          disabled={true}
         ></InputForm>
         <InputForm
           text="학년"
           name="grade"
           value={inputs.grade}
           onChange={onChange}
+          disabled={true}
         ></InputForm>
         <InputForm
           text="프로필"
           name="profile"
           value={inputs.profile}
           onChange={onChange}
+          disabled={false}
         ></InputForm>
       </div>
     </>
@@ -253,19 +260,42 @@ function StudentList({ nextId, onChange }) {
               <b>이름</b>
               <span>학년</span>
             </li>
-            {students
-              .filter(student => {
-                if (searcher === "") {
-                  return student;
-                } else if (
-                  student.name.toLowerCase().includes(searcher.toLowerCase())
-                ) {
-                  return student;
-                }
-              })
-              .map(student => (
-                <StudentInfo student={student} onToggle={onToggle} />
-              ))}
+            {students.length == 0 ? (
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  height: "100%"
+                }}
+              >
+                <div
+                  style={{
+                    fontSize: "30px",
+                    textAlign: "center",
+                    lineHeight: "40px"
+                  }}
+                >
+                  등록된 학생이 없습니다.
+                  <br />
+                  학생을 선택해 주세요.
+                </div>
+              </div>
+            ) : (
+              students
+                .filter(student => {
+                  if (searcher === "") {
+                    return student;
+                  } else if (
+                    student.name.toLowerCase().includes(searcher.toLowerCase())
+                  ) {
+                    return student;
+                  }
+                })
+                .map(student => (
+                  <StudentInfo student={student} onToggle={onToggle} />
+                ))
+            )}
           </ul>
         </div>
 

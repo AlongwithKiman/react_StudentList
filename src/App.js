@@ -1,10 +1,13 @@
 import React, { useState, useRef } from "react";
+import Home from "./Home";
 import StudentList from "./StudentList";
 import AddStudent from "./AddStudent";
+import Detail from "./Detail";
 import { PieChart, Pie, Cell } from "recharts";
 import "./App.css";
 import "./ModalContainer";
 import ModalContainer from "./ModalContainer";
+import { Route } from "react-router-dom";
 export const StudentsDispatch = React.createContext(null);
 
 function App() {
@@ -91,36 +94,86 @@ function App() {
     }
   ]);
 
-  // DATA FOR PIECHART
+  //   // DATA FOR PIECHART
 
-  const studentData = [
-    {
-      name: "1학년",
-      value: students.filter(student => student.grade == "1").length
-    },
-    {
-      name: "2학년",
-      value: students.filter(student => student.grade == "2").length
-    },
-    {
-      name: "3학년",
-      value: students.filter(student => student.grade == "3").length
-    }
-  ];
+  //   const studentData = [
+  //     {
+  //       name: "1학년",
+  //       value: students.filter(student => student.grade == "1").length
+  //     },
+  //     {
+  //       name: "2학년",
+  //       value: students.filter(student => student.grade == "2").length
+  //     },
+  //     {
+  //       name: "3학년",
+  //       value: students.filter(student => student.grade == "3").length
+  //     }
+  //   ];
 
-  const COLORS = ["red", "blue", "yellow"];
+  //   const COLORS = ["red", "blue", "yellow"];
 
-  const renderLabel = entry => {
-    return `${entry.name}(${entry.value})`;
-  };
-  // FOR DEBUG
+  //   const renderLabel = entry => {
+  //     return `${entry.name}(${entry.value})`;
+  //   };
+  //   // FOR DEBUG
 
-  const debug = () => {
-    //    console.log(students.map(student => [student.name, student.selected]));
-    console.log(studentData.map(data => data.value));
-  };
+  //   const debug = () => {
+  //     //    console.log(students.map(student => [student.name, student.selected]));
+  //     setStudents([]);
+  //     console.log(studentData.map(data => data.value));
+  //   };
 
-  const nextId = useRef(students.length + 1); // 왜 useState 에서는 nan 이 뜨냐.
+  //   const nextId = useRef(students.length + 1); // 왜 useState 에서는 nan 이 뜨냐.
+
+  //   const manageStudent = { students, setStudents };
+  //   return (
+  //     <StudentsDispatch.Provider
+  //       value={manageStudent}
+  //       style={{ display: "flex" }}
+  //     >
+  //       <header>
+  //         <div
+  //           className="container"
+  //           style={{ justifyContent: "left", marginLeft: "2%", marginTop: "1%" }}
+  //         >
+  //           <a href="http://wafflestudio.com">
+  //             <img src="https://wafflestudio.com/_next/image?url=%2Fimages%2Ficon_intro.svg&w=256&q=75"></img>
+  //           </a>
+
+  //           <h1>와플고등학교 명단 관리 프로그램</h1>
+  //         </div>
+  //         <div className="container">
+  //           <div>
+  //             <PieChart
+  //               width={150}
+  //               height={150}
+  //               style={{ position: "absolute", right: "5%" }}
+  //             >
+  //               <Pie
+  //                 data={studentData}
+  //                 dataKey="value"
+  //                 nameKey="name"
+  //                 cx="50%"
+  //                 cy="50%"
+  //                 outerRadius={30}
+  //                 fill={["blue", "red", "yellow"]}
+  //                 label={renderLabel}
+  //               >
+  //                 {studentData.map((entry, index) => (
+  //                   <Cell fill={COLORS[index % COLORS.length]} />
+  //                 ))}
+  //               </Pie>
+  //             </PieChart>
+  //           </div>
+  //         </div>
+  //       </header>
+  //       <main>
+  //         <StudentList nextId={nextId}></StudentList>
+  //       </main>
+  //       <button onClick={debug}> debug</button>
+  //     </StudentsDispatch.Provider>
+  //   );
 
   const manageStudent = { students, setStudents };
   return (
@@ -128,46 +181,8 @@ function App() {
       value={manageStudent}
       style={{ display: "flex" }}
     >
-      <header>
-        <div
-          className="container"
-          style={{ justifyContent: "left", marginLeft: "2%", marginTop: "1%" }}
-        >
-          <a href="http://wafflestudio.com">
-            <img src="https://wafflestudio.com/_next/image?url=%2Fimages%2Ficon_intro.svg&w=256&q=75"></img>
-          </a>
-
-          <h1>와플고등학교 명단 관리 프로그램</h1>
-        </div>
-        <div className="container">
-          <div>
-            <PieChart
-              width={150}
-              height={150}
-              style={{ position: "absolute", right: "5%" }}
-            >
-              <Pie
-                data={studentData}
-                dataKey="value"
-                nameKey="name"
-                cx="50%"
-                cy="50%"
-                outerRadius={30}
-                fill={["blue", "red", "yellow"]}
-                label={renderLabel}
-              >
-                {studentData.map((entry, index) => (
-                  <Cell fill={COLORS[index % COLORS.length]} />
-                ))}
-              </Pie>
-            </PieChart>
-          </div>
-        </div>
-      </header>
-      <main>
-        <StudentList nextId={nextId}></StudentList>
-      </main>
-      <button onClick={debug}> debug</button>
+      <Route path="/" component={Home} exact />
+      <Route path="/detail/:name" component={Detail} exact={true}></Route>
     </StudentsDispatch.Provider>
   );
 }
