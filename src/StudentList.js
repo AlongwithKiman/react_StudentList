@@ -53,48 +53,48 @@ function StudentInfo({ student, onToggle, inputs, setInputs }) {
   };
 
   return (
-    <Link to={`/detail/${student.name}`} className="Link">
-      <li
-        onMouseOver={() => setListHover(true)}
-        onMouseOut={() => setListHover(false)}
-        onClick={() => {
-          onToggle(student.id);
-          console.log("clicked");
-        }}
-      >
-        <b>{name} </b>
-        <span>
-          {grade}
+    // <Link to={`/detail/${student.name}`} className="Link">
+    <li
+      onMouseOver={() => setListHover(true)}
+      onMouseOut={() => setListHover(false)}
+      onClick={() => {
+        onToggle(student.id);
+        console.log("clicked");
+      }}
+    >
+      <b>{name} </b>
+      <span>
+        {grade}
 
-          {selected ? ( // 왼쪽 아이콘
-            <img
-              src="https://cdn.icon-icons.com/icons2/2248/PNG/512/arrow_left_box_icon_137939.png"
-              style={{
-                width: "30px",
-                height: "30px",
-                marginRight: "5%"
-              }}
-              onClick={unselect}
-            ></img>
-          ) : isListHover ? ( // 오른쪽 아이콘
-            <img
-              src="https://cdn.icon-icons.com/icons2/2248/PNG/512/arrow_right_bold_box_icon_135930.png"
-              style={{
-                width: "30px",
-                height: "30px",
-                marginRight: "5%"
-              }}
-              onClick={() => {
-                onToggle(student.id);
-                console.log("clicked2");
-              }}
-            ></img>
-          ) : null}
-        </span>
+        {selected ? ( // 왼쪽 아이콘
+          <img
+            src="https://cdn.icon-icons.com/icons2/2248/PNG/512/arrow_left_box_icon_137939.png"
+            style={{
+              width: "30px",
+              height: "30px",
+              marginRight: "5%"
+            }}
+            onClick={unselect}
+          ></img>
+        ) : isListHover ? ( // 오른쪽 아이콘
+          <img
+            src="https://cdn.icon-icons.com/icons2/2248/PNG/512/arrow_right_bold_box_icon_135930.png"
+            style={{
+              width: "30px",
+              height: "30px",
+              marginRight: "5%"
+            }}
+            onClick={() => {
+              onToggle(student.id);
+              console.log("clicked2");
+            }}
+          ></img>
+        ) : null}
+      </span>
 
-        {/* <span>{selected ? "선택됨" : isListHover ? "마우스올라옴" : ""}</span> */}
-      </li>
-    </Link>
+      {/* <span>{selected ? "선택됨" : isListHover ? "마우스올라옴" : ""}</span> */}
+    </li>
+    // </Link>
   );
 }
 
@@ -156,8 +156,19 @@ function StudentEdit({ inputs, setInputs }) {
   return (
     <>
       <div className="buttons">
-        <button onClick={editStudent}>저장</button>
-        <button onClick={() => deleteStudent(selectedStudent.id)}>삭제</button>
+        {/* <button onClick={editStudent}>저장</button> */}
+        {/* <button onClick={() => deleteStudent(selectedStudent.id)}>삭제</button> */}
+
+        <Link
+          to={`/detail/${selectedStudent.name}`}
+          className="Link"
+          style={{ marginRight: "3%", marginTop: "2%" }}
+        >
+          <img
+            src="https://gogeticon.net/files/2565735/ff3fa44f1e75c25cd7b11bf8a8392d74.png"
+            style={{ width: "30px", height: "30px" }}
+          ></img>
+        </Link>
       </div>
       <img
         src={

@@ -4,6 +4,9 @@ header {
 main {
 }
 
+.detaildiv {
+  border: 1px solid black;
+}
 a:link {
   text-decoration: none;
 }
@@ -82,7 +85,7 @@ h1 {
 
 .buttons {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
 }
 
 .buttons button {
