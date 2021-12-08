@@ -18,6 +18,9 @@ function App() {
       grade: 1,
       profile:
         "https://github.githubassets.com/images/modules/logos_page/Octocat.png",
+      phoneNumber: '010-1234-5678',
+      email:'abcd@waffle.hs.kr',
+      major:'cs',
       selected: false,
       searched: false // 검색됨?
     },
@@ -26,6 +29,9 @@ function App() {
       name: "빈학생",
       grade: 1,
       profile: "",
+      phoneNumber: '010-1234-5678',
+      email:'abcd@waffle.hs.kr',
+      major:'cs',
       selected: false,
       searched: false // 검색됨?
     },
@@ -35,6 +41,9 @@ function App() {
       grade: 2,
       profile:
         "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/2560px-React-icon.svg.png",
+        phoneNumber: '010-1234-5678',
+      email:'abcd@waffle.hs.kr',
+      major:'cs',
       selected: false,
       searched: false // 검색됨?
     },
@@ -44,6 +53,9 @@ function App() {
       grade: 2,
       profile:
         "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Svelte_Logo.svg/1200px-Svelte_Logo.svg.png",
+        phoneNumber: '010-1234-5678',
+      email:'abcd@waffle.hs.kr',
+      major:'cs',
       selected: false,
       searched: false // 검색됨?
     },
@@ -53,6 +65,9 @@ function App() {
       grade: 3,
       profile:
         "https://raw.githubusercontent.com/1ambda/1ambda.github.io/master/assets/images/redux/redux_logo.png?width=30%&height=30%",
+      phoneNumber: '010-1234-5678',
+      email:'abcd@waffle.hs.kr',
+      major:'cs',
       selected: false,
       searched: false // 검색됨?
     },
@@ -62,6 +77,9 @@ function App() {
       grade: 3,
       profile:
         "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Typescript_logo_2020.svg/1200px-Typescript_logo_2020.svg.png",
+      phoneNumber: '010-1234-5678',
+      email:'abcd@waffle.hs.kr',
+      major:'cs',
       selected: false,
       searched: false // 검색됨?
     },
@@ -71,6 +89,9 @@ function App() {
       grade: 3,
       profile:
         "https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Sass_Logo_Color.svg/1280px-Sass_Logo_Color.svg.png",
+        phoneNumber: '010-1234-5678',
+      email:'abcd@waffle.hs.kr',
+      major:'cs',
       selected: false,
       searched: false // 검색됨?
     },
@@ -80,6 +101,9 @@ function App() {
       grade: "1",
       profile:
         "https://wafflestudio.com/_next/image?url=%2Fimages%2Ficon_intro.svg&w=256&q=75",
+      phoneNumber: '010-1234-5678',
+      email:'abcd@waffle.hs.kr',
+      major:'cs',
       selected: false,
       searched: false // 검색됨?
     },
@@ -89,6 +113,9 @@ function App() {
       grade: "2",
       profile:
         "https://wafflestudio.com/_next/image?url=%2Fimages%2Ficon_intro.svg&w=256&q=75",
+      phoneNumber: '010-1234-5678',
+      email:'abcd@waffle.hs.kr',
+      major:'cs',
       selected: false,
       searched: false
     }

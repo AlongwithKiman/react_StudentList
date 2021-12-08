@@ -1,4 +1,3 @@
 {
-    "python.pythonPath": "C:\\Users\\yeonwoong\\anaconda3\\python.exe",
-    "python.dataScience.jupyterServerURI": "local"
+    "jupyter.jupyterServerType": "local"
 }
